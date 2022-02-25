@@ -1,10 +1,10 @@
 import csv
-import requests
+import urllib.request
 import xml.etree.ElementTree as ET
 
 
 VOTES = ET.fromstring(
-    requests.get("https://www.ourcommons.ca/members/en/votes/xml").content
+    urllib.request.urlopen("https://www.ourcommons.ca/members/en/votes/xml").read()
 )
 
 votes_recorded = []
@@ -21,11 +21,11 @@ for vote in VOTES:
         vote_nays = vote[7].text
 
         individual_votes = ET.fromstring(
-            requests.get(
+            urllib.request.urlopen(
                 "https://www.ourcommons.ca/Members/en/votes/44/1/"
                 + vote_number
                 + "/xml"
-            ).content
+            ).read()
         )
 
         bloc = [0, 0]
