@@ -1,9 +1,9 @@
 import csv
 import urllib.request
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree
 
 
-VOTES = ET.fromstring(
+VOTES = xml.etree.ElementTree.fromstring(
     urllib.request.urlopen("https://www.ourcommons.ca/members/en/votes/xml").read()
 )
 
@@ -20,7 +20,7 @@ for vote in VOTES:
         vote_yeas = vote[6].text
         vote_nays = vote[7].text
 
-        individual_votes = ET.fromstring(
+        individual_votes = xml.etree.ElementTree.fromstring(
             urllib.request.urlopen(
                 "https://www.ourcommons.ca/Members/en/votes/44/1/"
                 + vote_number
